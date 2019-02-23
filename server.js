@@ -1,12 +1,14 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const authRoutes = require('./routes/auth-routes')
+const indexRoutes = require('./routes/index')
 const passportSetup = require('./config/passport-setup')
 const passport = require('passport')
 const keys = require('./config/keys')
 const cookieSession = require('cookie-session');
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+const exphbs = require('express-handlebars')
 const app = express()
 
 const SERVER_PORT = process.env.PORT || 3000
@@ -30,18 +32,21 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+//global vars
+app.use((req,res,next) => {
+   res.locals.user = req.user || null
+   next()
+})
+
+app.engine('handlebars' , exphbs({
+    defaultLayout:'main'
+}))
+app.set('view engine' , 'handlebars')
+
 
 app.use('/auth' , authRoutes)
 
-
-
-//this is the home page route
-app.get('/' , (req,res) => {
-    res.send('hello world !!')
-})
-
-//user authorization routes
-
+app.use('/' , indexRoutes)
 
 
 app.listen(SERVER_PORT , () => {
