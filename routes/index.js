@@ -1,16 +1,16 @@
 const router = require('express').Router()
 const passport = require('passport')
-
+const {ensureAuthenticated, ensureGuest} = require('../helper/auth-helper')
 
 
 
 //this is the home page route
-router.get('/' , (req,res) => {
+router.get('/' , ensureGuest,(req,res) => {
     res.render('index/welcome')
 })
 
 //dashboard route
-router.get('/dashboard' , (req,res) => {
+router.get('/dashboard' ,ensureAuthenticated, (req,res) => {
     res.render('index/dashboard')
 })
 
