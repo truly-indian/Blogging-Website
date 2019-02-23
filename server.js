@@ -12,6 +12,7 @@ const exphbs = require('express-handlebars')
 const app = express()
 const blogs = require('./routes/blogs')
 const path = require('path')
+const bodyParser = require('body-parser')
 const SERVER_PORT = process.env.PORT || 3000
 
 mongoose.connect(keys.mongodb.dbURI , { useNewUrlParser: true }).then(() => console.log('connected to databse')).catch((err) => console.log('not connected!!' + err))
