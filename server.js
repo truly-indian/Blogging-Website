@@ -11,6 +11,7 @@ const cookieParser = require('cookie-parser')
 const exphbs = require('express-handlebars')
 const app = express()
 const blogs = require('./routes/blogs')
+const path = require('path')
 const SERVER_PORT = process.env.PORT || 3000
 
 mongoose.connect(keys.mongodb.dbURI , { useNewUrlParser: true }).then(() => console.log('connected to databse')).catch((err) => console.log('not connected!!' + err))
@@ -29,6 +30,9 @@ app.use(session({
     saveUninitialized: true,
   }))
 
+
+  
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -37,6 +41,9 @@ app.use((req,res,next) => {
    res.locals.user = req.user || null
    next()
 })
+
+
+app.use(express.static(path.join(__dirname , 'public')))
 
 app.engine('handlebars' , exphbs({
     defaultLayout:'main'
