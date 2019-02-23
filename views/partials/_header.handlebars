@@ -1,0 +1,37 @@
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/blogs"><i class="fab fa-blogger "> </i>  Blogs</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+                {{#if user}} 
+                      <li class="nav-item active">
+                       <a class="nav-link" href="/dashboard">Welcome: {{user.username}} <span class="sr-only">(current)</span></a>
+                      </li>
+                       <li class="nav-item active">
+                       <a class="nav-link" href="/blogs/my">My blogs<span class="sr-only">(current)</span></a>
+                      </li>
+                 <li>
+                     <a href="/dashboard"><img src="{{user.thumbnail}}"></a>
+                 </li>
+
+                <a class="nav-link" href="/auth/logout">Signout</a> 
+               
+                {{else}}
+                   <li class="nav-item active">
+                      <a class="nav-link" href="/auth/google">Signin<span class="sr-only">(current)</span></a>
+                  </li> 
+                   <li class="nav-item active">
+                       <a class="nav-link" href="/about">about dev <span class="sr-only">(current)</span></a>
+                  </li> 
+                  
+                  {{/if}}
+            
+         </ul>
+        
+      </div>
+   </nav
