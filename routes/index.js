@@ -11,7 +11,7 @@ router.get('/' , (req,res) => {
 
 //dashboard route
 router.get('/dashboard' , (req,res) => {
-    res.send(req.user)
+    res.render('index/dashboard')
 })
 
 
