@@ -4,8 +4,13 @@ const {ensureAuthenticated, ensureGuest} = require('../helper/auth-helper')
 const bodyParser = require('body-parser')
 const multer  = require('multer')
 const mongoose = require('mongoose')
+
+
 const Blog = require('../models/blog-model')
 const User = require('../models/user-model')
+
+
+
 const storage = multer.diskStorage({
   destination: function(req,file,cb) {
         cb(null,'uploads/')
@@ -34,7 +39,12 @@ router.use(bodyParser.json())
 
 //stories route
 router.get('/' , (req,res) => {
-  res.render('blogs/index')
+  Blog.find({status:'public'})
+  .then(blogs => {
+    console.log(blogs)
+    res.render('blogs/index' , {blogs:blogs})
+  })
+ 
 })
 
 //get add blog route
@@ -55,7 +65,7 @@ router.post('/' ,upload.single('image'),(req,res ) => {
         allowComments = false;
       }
     if(req.file!=undefined) {
-      image = req.file.path
+        image = req.file.path.substring(8)
     }else {
       image=false
     }
@@ -65,7 +75,9 @@ router.post('/' ,upload.single('image'),(req,res ) => {
         status:req.body.status,
         image:image,
         allowComments:allowComments,
-        user:req.user.id
+        user:req.user.id,
+        username:req.user.username,
+        thumbnail:req.user.thumbnail
       }
       new Blog(newBlog).save().then(blog=> {
          res.redirect(`/blogs/show/${blog.id}`)

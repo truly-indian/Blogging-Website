@@ -32,16 +32,23 @@ const blogSchema = new Schema({
             ref:'users'
         }
     }],
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:'users'
+    },
     image:{
         type:String,
     },
-    user:{
-        type:Schema.Types.ObjectId,
-            ref:'users'
-    },
+   
     date:{
         type:Date,
         default:Date.now
+    },
+    username:{
+        type:String
+    },
+    thumbnail:{
+        type:String
     }
 
 });
