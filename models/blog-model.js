@@ -12,7 +12,7 @@ const blogSchema = new Schema({
    },
     status:{
     type:String,
-    default:public
+    
     },
     allowComments:{
         type:Boolean,
