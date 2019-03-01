@@ -1,1 +1,60 @@
-<h1>show storise page</h1>
+<div class="container">
+ <div class="row">
+ <div class="col-12 col-lg-9">
+     <div class="card " style="width: 30rem;">
+  <img src='/{{blog.image}}' class="card-img-top" alt="No image available">
+  <div class="card-body">
+    <h5 class="card-title">{{blog.title}}</h5>
+    <h4 class="text-muted">{{formatDate blog.date "Do MMM YYYY"}}</h4>
+    <p class="card-text">{{{blog.details}}}</p>
+    <hr>
+    <img src="{{blog.thumbnail}}">
+    <span><a href="/blogs/edit/{{id}}"><i class="fas fa-pencil-alt"></i></span></a>
+  </div>
+</div>
+{{#if blog.allowComments}}
+<div class="card mt-2">
+    <div class="card-body">
+       <span>Comments:</span> 
+       {{#if user}}
+
+       <form action="/blogs/comment/{{blog.id}}" method="POST">
+ <div class="input-field">
+  <textarea name="commentBody" class="form-control"></textarea>
+  <label>Add comment</label>
+
+ </div>
+  <input type="submit" value="submit" class="btn btn-primary">
+       </form>
+       {{else}}
+       <p>please login first</p> 
+       {{/if}}
+    </div>
+
+</div>
+ {{#each blog.comments}}
+   <div class="card">
+       <div class="card-body">
+  <h4>{{commentBody}}</h4>
+      {{commenteruser}}
+      <br>
+      Posted: {{formatDate commentDate 'Do MMMM YYYY'}}
+       </div>
+   </div>
+{{/each}}
+{{/if}}
+</div>
+<div class="col-12 col-lg-3 ">
+      <div class="card ml-2" style="width:18rem">
+          <div class="card-body">
+           <h5>{{blog.username}}</h5>
+           <img src="{{blog.thumbnail}}">
+          </div>
+          <hr>
+          <div class="card-action" style="text-align: center">
+             <a href="/blogs/user/{{blog.user}}" style="text-decoration:none">More from {{blog.username}}</a>
+          </div>
+      </div>
+</div>
+ </div>
+ </div>

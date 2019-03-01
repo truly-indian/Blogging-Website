@@ -30,6 +30,9 @@ const blogSchema = new Schema({
         commentUser:{
             type:Schema.Types.ObjectId,
             ref:'users'
+        },
+        commenteruser:{
+            type:String
         }
     }],
     user:{

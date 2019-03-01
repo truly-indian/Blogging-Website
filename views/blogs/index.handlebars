@@ -6,7 +6,7 @@
   <img src='/{{image}}' class="card-img-top" alt="No image available">
   <div class="card-body">
     <h5 class="card-title">{{title}}</h5>
-    <p class="card-text">{{details}}</p>
+    <p class="card-text">{{stripTags (truncate details 150)}}</p>
     <hr>
     <img src="{{thumbnail}}">
     <a href="/blogs/show/{{id}}" class="btn btn-primary">Read More</a>

@@ -13,6 +13,8 @@ const app = express()
 const blogs = require('./routes/blogs')
 const path = require('path')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+const {truncate,stripTags,formatDate,select} = require('./helper/hbs')
 const SERVER_PORT = process.env.PORT || 3000
 
 mongoose.connect(keys.mongodb.dbURI , { useNewUrlParser: true }).then(() => console.log('connected to databse')).catch((err) => console.log('not connected!!' + err))
@@ -32,10 +34,13 @@ app.use(session({
   }))
 
 app.use(express.static('uploads')) 
- 
+
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
   
+
+app.use(methodOverride('_method'))
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,6 +55,12 @@ app.use((req,res,next) => {
 app.use(express.static(path.join(__dirname , 'public')))
 
 app.engine('handlebars' , exphbs({
+    helpers:{
+         truncate:truncate,
+         stripTags:stripTags,
+         formatDate:formatDate,
+         select:select
+    },
     defaultLayout:'main'
 }))
 app.set('view engine' , 'handlebars')

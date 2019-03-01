@@ -1,3 +1,35 @@
 <h1>this is the dashboard {{user.username}}</h1>
 
 <h4>Your blogs</h4>
+
+{{#if blogs}}
+<table class="table table-hover">
+  <thead>
+      <tr>
+          <th>Title</th>
+          <th>Date</th>
+          <th>status</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+      {{#each blogs}}
+        <tr>
+            <td><a href="/blogs/show/{{id}}" style="text-decoration:none">{{title}}</a></td>
+            <td>{{formatDate date 'Do MMMM YYYY'}}</td>
+            <td><span class="dash-status">{{status}}</span></td>
+             <td><a href="/blogs/edit/{{id}}" class="btn btn-secondary btn-large"><i class="fas fa-pencil-alt"></i>  edit</a>
+             <form action="/blogs/{{id}}?_method=DELETE" method="POST" id="delete-form" class="mt-2">
+             <input type="hidden" name="_method" value="DELETE">
+             <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i>  Delete</button>
+             </form>
+             </td>
+        </tr>
+      {{/each}}
+  </tbody>
+</table>
+
+{{else}}
+<p>You have not created any stories yet</p>
+
+{{/if}}

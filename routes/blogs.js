@@ -4,7 +4,7 @@ const {ensureAuthenticated, ensureGuest} = require('../helper/auth-helper')
 const bodyParser = require('body-parser')
 const multer  = require('multer')
 const mongoose = require('mongoose')
-
+const path = require('path')
 
 const Blog = require('../models/blog-model')
 const User = require('../models/user-model')
@@ -52,6 +52,30 @@ router.get('/add' , ensureAuthenticated,(req,res) => {
  res.render('blogs/add')
 })
 
+//show single blog
+router.get('/show/:id' , (req,res) => {
+   Blog.findOne({
+     _id:req.params.id
+   })
+   .then(blog => {
+     res.render('blogs/show' , {
+       blog:blog
+     })
+   })
+})
+
+//edit story page
+router.get('/edit/:id' , (req,res ) => {
+  Blog.findOne({
+    _id:req.params.id
+  }).then(blog => {
+    res.render('blogs/edit' , {
+      blog:blog
+    })
+  })
+ 
+})
+
 //post add blog route
 
 router.post('/' ,upload.single('image'),(req,res ) => {
@@ -83,5 +107,46 @@ router.post('/' ,upload.single('image'),(req,res ) => {
          res.redirect(`/blogs/show/${blog.id}`)
       }).catch()
 }) 
+
+//edit form route
+router.post('/:id' , (req,res) => {
+          console.log('this is the edit route')
+          console.log(req.body)
+          res.send('functionality still not added!!')
+  })
+  
+//delete
+router.delete('/:id' , (req,res) => {
+  Blog.remove({
+    _id:req.params.id
+  })
+  .then(() => {
+    res.redirect('/dashboard')
+  })
+})
+
+//add comment
+
+  router.post('/comment/:id' , (req,res) => {
+    console.log(req.body)
+    console.log(req.user.username)
+     Blog.findOne({
+       _id:req.params.id
+     })
+     .then(blog => {
+        const newComment = {
+          commentBody:req.body.commentBody,
+          commenteruser:req.user.username
+        }
+        console.log(req.user.username)
+        //push to comments array
+        blog.comments.unshift(newComment)
+         blog.save()
+         .then(blog => {
+           res.redirect(`/blogs/show/${blog.id}`)
+         }) 
+     })
+  })
+
 
 module.exports = router

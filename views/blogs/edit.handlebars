@@ -1,1 +1,33 @@
-<h1>this is the edit stories page</h1>
+<div class="card card-body">
+    <h3>Blog</h3>
+    <form action="/blogs/{{blog.id}}" method="POST" enctype="multipart/form-data">
+           <div class="form-group">
+               <label for="title">Title</label>
+               <input type="text" class="form-control" name="title" required value="{{blog.title}}">
+           </div>
+           <div class="form-group">
+               <label for="details">Details</label>
+               <textarea class="form-control" name="details" required>{{blog.details}}</textarea>
+           </div>
+           <div class="form-group">   
+               <input type="file" name="image" id="image" >
+           </div> 
+           <div>
+            <select name="status">
+                <option value="public">public</option>
+                <option value="private">private</option>
+                <option value="unpublished">unpublished</option>
+            </select>
+             <div class="mt-1">
+                 <label for="allowComments">Allow Comments:</label>
+                <input type="checkbox" name="allowComments" checked="checked" name="allowComments">
+            </div>
+            <div>
+                  <button class="btn btn-primary mt-2">submit</button>
+            </div>
+           
+           </div>
+           
+    </form>
+     
+</div>
