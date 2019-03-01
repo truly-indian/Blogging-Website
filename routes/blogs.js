@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const multer  = require('multer')
 const mongoose = require('mongoose')
 const path = require('path')
-
 const Blog = require('../models/blog-model')
 const User = require('../models/user-model')
 
@@ -34,12 +33,13 @@ const upload = multer({storage:storage,limits:{
 }, fileFilter:filefilter
 })
 
-router.use(bodyParser.urlencoded({ extended: true }))
+router.use(bodyParser.urlencoded({ extended: false }))
 router.use(bodyParser.json())
 
 //stories route
 router.get('/' , (req,res) => {
   Blog.find({status:'public'})
+  .sort({date:'desc'})
   .then(blogs => {
     console.log(blogs)
     res.render('blogs/index' , {blogs:blogs})
@@ -58,20 +58,41 @@ router.get('/show/:id' , (req,res) => {
      _id:req.params.id
    })
    .then(blog => {
-     res.render('blogs/show' , {
-       blog:blog
-     })
+      if(blog.status == 'public'){
+             res.render('blogs/show' , {
+               blog:blog
+             })
+      }else {
+        if(req.user) {
+               if(req.user.id == blog.user._id){
+                res.render('blogs/show' , {
+                  blog:blog
+                })
+               }else {
+                res.redirect('/blogs')
+               }
+        }
+        else {
+          res.redirect('/blogs')
+        }
+      
+      }
    })
 })
 
 //edit story page
-router.get('/edit/:id' , (req,res ) => {
+router.get('/edit/:id' , ensureAuthenticated,(req,res ) => {
   Blog.findOne({
     _id:req.params.id
   }).then(blog => {
-    res.render('blogs/edit' , {
-      blog:blog
-    })
+    if(blog.user!=req.user.id) {
+      res.redirect('/blogs')
+    }else {
+      res.render('blogs/edit' , {
+        blog:blog
+      })
+    }
+   
   })
  
 })
@@ -109,10 +130,36 @@ router.post('/' ,upload.single('image'),(req,res ) => {
 }) 
 
 //edit form route
-router.post('/:id' , (req,res) => {
-          console.log('this is the edit route')
-          console.log(req.body)
-          res.send('functionality still not added!!')
+router.put('/:id' , upload.single('image'),(req,res) => {
+  Blog.findOne({
+    _id: req.params.id
+  })
+  .then(blog => {
+    let allowComments;
+    if(req.body.allowComments){
+             allowComments = true;
+    }else {
+      allowComments = false;
+    }
+  if(req.file!=undefined) {
+      image = req.file.path.substring(8)
+  }else {
+    image=false
+  }
+    //new values
+    blog.title=req.body.title,
+    blog.details=req.body.details,
+    blog.status=req.body.status,
+    blog.image=image,
+    blog.allowComments=allowComments,
+    blog.user=req.user.id,
+    blog.username=req.user.username,
+    blog.thumbnail=req.user.thumbnail
+    blog.save()
+      .then(blog => {
+        res.redirect('/dashboard');
+      })
+  })
   })
   
 //delete
@@ -128,15 +175,16 @@ router.delete('/:id' , (req,res) => {
 //add comment
 
   router.post('/comment/:id' , (req,res) => {
-    console.log(req.body)
     console.log(req.user.username)
      Blog.findOne({
        _id:req.params.id
      })
      .then(blog => {
+       console.log(req.user.id)
         const newComment = {
           commentBody:req.body.commentBody,
-          commenteruser:req.user.username
+          commenteruser:req.user.username,
+          user:req.user.id
         }
         console.log(req.user.username)
         //push to comments array
@@ -147,6 +195,32 @@ router.delete('/:id' , (req,res) => {
          }) 
      })
   })
+
+//list blogs from a a user
+router.get('/user/:userid' , (req,res) => {
+   console.log(req.params.id)
+   Blog.find({user:req.params.userid , status:'public'})
+   .then(blogs => {
+     res.render('blogs/index' , {
+       blogs:blogs
+     })
+   })
+
+})
+
+//loggedin users stories---
+router.get('/my' , ensureAuthenticated,(req,res) => {
+  
+  Blog.find({user:req.user.id})
+  .then(blogs => {
+    res.render('blogs/index' , {
+      blogs:blogs
+    })
+  })
+
+})
+
+
 
 
 module.exports = router

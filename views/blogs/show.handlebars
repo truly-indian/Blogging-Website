@@ -32,11 +32,13 @@
     </div>
 
 </div>
+
  {{#each blog.comments}}
    <div class="card">
        <div class="card-body">
-  <h4>{{commentBody}}</h4>
-      {{commenteruser}}
+    <h4>{{commentBody}}</h4>
+     <a href="/blogs/user/{{user}}">{{commenteruser}}</a>
+     
       <br>
       Posted: {{formatDate commentDate 'Do MMMM YYYY'}}
        </div>

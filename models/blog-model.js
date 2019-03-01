@@ -33,6 +33,9 @@ const blogSchema = new Schema({
         },
         commenteruser:{
             type:String
+        },
+        user:{
+            type:String
         }
     }],
     user:{
