@@ -10,12 +10,12 @@ const mongoose = require('mongoose')
 router.use(bodyParser.urlencoded({ extended: true }))
 
 //this is the home page route
-router.get('/' , ensureGuest,(req,res) => {
+router.get('/' , ensureGuest, (req,res) => {
     res.render('index/welcome')
 })
 
 //dashboard route
-router.get('/dashboard' ,ensureAuthenticated, (req,res) => {
+router.get('/dashboard' , ensureAuthenticated, (req,res) => {
     Blog.find({
         user:req.user.id
     })

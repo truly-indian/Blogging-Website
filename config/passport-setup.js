@@ -21,7 +21,6 @@ passport.use(
         callbackURL: 'https://mighty-depths-98651.herokuapp.com/auth/google/redirect'
     }, (accessToken, refreshToken, profile, done) => {
         console.log(profile)
-        
         // check if user already exists in our own db
         User.findOne({googleId: profile.id}).then((currentUser) => {
             if(currentUser){
