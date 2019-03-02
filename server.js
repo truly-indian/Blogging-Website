@@ -67,8 +67,8 @@ app.engine('handlebars' , exphbs({
 }))
 app.set('view engine' , 'handlebars')
 
-app.get('/prodkeys' , (req,res) => {
-    res.send(keys.google.clientID)
+app.get('/prodkeys/:name' , function(req,res){
+          res.send(req.params.name)
 })
 
 app.use('/' , indexRoutes)
