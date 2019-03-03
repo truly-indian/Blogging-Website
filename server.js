@@ -67,8 +67,14 @@ app.engine('handlebars' , exphbs({
 }))
 app.set('view engine' , 'handlebars')
 
-app.get('/prodkeys/:name' , function(req,res){
-          res.send(req.params.name)
+app.get('/prodkeys' , (req,res) => {
+      let object = {
+          google_id: keys.google.clientID,
+          google_secret:keys.google.clientSecret,
+          dataabse: keys.mongodb.dbURI,
+          cookie:keys.session.cookieKey
+      }
+      res.send({object:object})
 })
 
 app.use('/' , indexRoutes)
