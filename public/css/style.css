@@ -8,9 +8,9 @@
       text-align: center
   }
 
-  .float{
+.float{
 position:fixed;
-bottom:80px;
+bottom:40px;
 right:40px;
 text-align:center;
 z-index: 99;
@@ -38,6 +38,9 @@ max-width:100%
 @media(max-width:480px){
          .singleblog{
            width: 20rem;
+         }
+         .float{
+           right: 20px;
          }
 }
 .singleblog{
