@@ -35,3 +35,12 @@ max-width:100%
 #delete-form{
   display: inline;
 }
+
+@media(max-width:480px){
+         .singleblog{
+           width: 20rem;
+         }
+}
+.singleblog{
+  width: 50rem;
+}
