@@ -102,7 +102,6 @@ router.get('/edit/:id' , ensureAuthenticated,(req,res ) => {
 router.post('/' ,upload.single('image'),(req,res ) => {
   console.log(req.file)
   console.log(req.body)
- 
       let allowComments;
       if(req.body.allowComments){
                allowComments = true;
