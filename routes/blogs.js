@@ -109,7 +109,8 @@ router.post('/' ,upload.single('image'),(req,res ) => {
         allowComments = false;
       }
     if(req.file!=undefined) {
-        image = req.file.path.substring(8)
+       console.log(req.file)
+       image=req.file.path
     }else {
       image=false
     }
