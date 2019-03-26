@@ -7,8 +7,7 @@ const mongoose = require('mongoose')
 const path = require('path')
 const Blog = require('../models/blog-model')
 const User = require('../models/user-model')
-
-
+const gridFs = require('multer-gridfs-storage')
 
 const storage = multer.diskStorage({
   destination: function(req,file,cb) {
