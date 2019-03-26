@@ -18,7 +18,7 @@ passport.use(
         // options for google strategy
         clientID: keys.google.clientID,
         clientSecret: keys.google.clientSecret,
-        callbackURL: '/auth/google/redirect'
+        callbackURL: 'https://mighty-depths-98651.herokuapp.com/auth/google/redirect'
     }, (accessToken, refreshToken, profile, done) => {
         console.log(profile)
         // check if user already exists in our own db
