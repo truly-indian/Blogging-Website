@@ -66,7 +66,14 @@ html {
   height: 100%;
   box-sizing: border-box;
 }
+.hover-card{
+  display:inline-block;
+  position: relative;
+  transition: all .2s ease-in-out;
+  transform: scale(1); 
+}
 .hover-card:hover{
+  z-index: 2;
     border: 2px solid red;
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
