@@ -37,13 +37,22 @@ router.use(bodyParser.json())
 
 //stories route
 router.get('/' , (req,res) => {
+  if(req.query.search){
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    Blog.find({status:'public',title:regex})
+    .sort({date:'desc'})
+    .then(blogs => {
+      console.log(blogs)
+      res.render('blogs/index' , {blogs:blogs,search:req.query.search})
+    })
+  }else {
   Blog.find({status:'public'})
   .sort({date:'desc'})
   .then(blogs => {
     console.log(blogs)
     res.render('blogs/index' , {blogs:blogs})
   })
- 
+}
 })
 
 //get add blog route
@@ -219,7 +228,9 @@ router.get('/my' , ensureAuthenticated,(req,res) => {
 
 })
 
-
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
 
 
 module.exports = router

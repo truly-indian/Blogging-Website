@@ -1,8 +1,25 @@
-<h1>stories</h1>
+<br>
+<h1>STORIES</h1>
+<br>
+<hr>
+<div class='container'>
+  <div class="row">
+  <form method="GET" action="/blogs">
+  <div class="form-group">
+  <input type="text" placeholder="search" name="search" class="form-control" value="{{search}}">
+  <small class="text-muted">Search through title..</small>
+  <div>
+  <button class="btn btn-primary">Search</button>
+  </div>
+  </div>
+  </form>
+  </div>
+</div>
+<br>
+<hr>
 <div class="row">
  {{#each blogs}}
 <div class="card ml-2 mb-2 hover-card" style="width: 18rem;">
-    
   <img src='/{{image}}' class="card-img-top" alt="No image available">
   <div class="card-body">
     <h5 class="card-title">{{title}}</h5>
