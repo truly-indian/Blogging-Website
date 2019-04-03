@@ -51,6 +51,7 @@ body{
   margin: 0;
   padding-bottom: 6rem;
   min-height: 100%;
+ 
 }
 .footer{
   position: absolute;
@@ -73,7 +74,26 @@ html {
   transform: scale(1); 
 }
 .hover-card:hover{
-  z-index: 2;
+    z-index: 2;
     border: 2px solid red;
     transform: scale(1.1);
+}
+.background {
+position: absolute; 
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+.jumbo{
+  position: relative;
+  
+}
+.form{
+  position: relative;
+}
+.dashboard{
+ position: relative;
+}
+.dash-status{
+  color: #FFF;
 }

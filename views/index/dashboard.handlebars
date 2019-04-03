@@ -1,10 +1,10 @@
-<h1>this is the dashboard {{user.username}}</h1>
+<h1 class="dash-status">Welcome {{user.username}}</h1>
 
-<h4>Your blogs</h4>
+<h4 class="dash-status">Your blogs</h4>
 
 {{#if blogs}}
-<table class="table table-hover">
-  <thead>
+<table class="table table-hover dashboard">
+  <thead class="dash-status">
       <tr>
           <th>Title</th>
           <th>Date</th>
@@ -16,7 +16,7 @@
       {{#each blogs}}
         <tr>
             <td><a href="/blogs/show/{{id}}" style="text-decoration:none">{{title}}</a></td>
-            <td>{{formatDate date 'Do MMMM YYYY'}}</td>
+            <td><span class="dash-status">{{formatDate date 'Do MMMM YYYY'}}</span></td>
             <td><span class="dash-status">{{status}}</span></td>
              <td><a href="/blogs/edit/{{id}}" class="btn btn-secondary btn-large mt-2"><i class="fas fa-pencil-alt"></i>  edit</a>
              <form action="/blogs/{{id}}?_method=DELETE" method="POST" id="delete-form" class="mt-2">
