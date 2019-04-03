@@ -59,9 +59,12 @@ body{
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
   text-align: center;
-  color: rebeccapurple;
+  color: red;
+  background-color: black;
+}
+.pf{
+  color: red;
 }
 html {
   height: 100%;
@@ -84,9 +87,9 @@ position: absolute;
   left: 0;
   z-index: 0;
 }
-.jumbo{
+.jumbo {
   position: relative;
-  
+  background-color: black;
 }
 .form{
   position: relative;

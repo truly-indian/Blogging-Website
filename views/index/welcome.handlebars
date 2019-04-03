@@ -1,10 +1,10 @@
-<div class="jumbo jumbotron mt-2 ">
-  <h1 class="display-4"> Welcome</h1>
-  <p class="lead">This is a blogging site where in you can add your blogs..</p>
+<div style="position:relative">  
+  <h1 class="display-4 dash-status"> Welcome</h1>
+  <p class="lead dash-status">This is a blogging site where in you can add your blogs..</p>
   <hr class="my-3">
   {{#if user}}
   {{else}}
-  <p >Login using...</p>
+  <p class="dash-status">Login using...</p>
   <a href="/auth/google" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Google </a>
   {{/if}}
 </div>
