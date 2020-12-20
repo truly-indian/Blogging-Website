@@ -1,6 +1,6 @@
 module.exports = {
     mongodb:{
-     dbURI:'mongodb://deepak:deepak123@ds349065.mlab.com:49065/blogging-site'
+     dbURI:'mongodb+srv://deepak:deepak123@cluster0.o5uet.mongodb.net/<dbname>?retryWrites=true&w=majority'
     },
    google:{
     clientID:'547491143931-em9kk6ugliosahdv3c2ejma7i2cn7vmn.apps.googleusercontent.com',
